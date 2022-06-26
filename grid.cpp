@@ -218,7 +218,6 @@ void grid::solveBoard(int zoneI, std::vector<int>& starPlacements,
             if (all_valid(starPlacements)){
                 // if they're valid, then adance to the next zone
                 solveBoard(zoneI + 1, starPlacements, result);
-                // if we only want one solution, break when we find one
             }
             // reset if not good or move towards the next solution
             starPlacements.pop_back();

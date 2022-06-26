@@ -1,4 +1,3 @@
-// #include "grid.h"
 #include "grid.cpp"
 
 int main(){
