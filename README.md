@@ -1,5 +1,8 @@
 # star-battles-solver
 
+---IMPORTANT--
+PLEASE VIEW README.md AS THE SOURCE TEXT
+
 Star battles (aka Two Not Touch):
 logic puzzle game with challenging solutions.
 
