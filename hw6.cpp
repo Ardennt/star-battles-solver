@@ -1,16 +1,17 @@
-#include "grid.h"
+// #include "grid.h"
+#include "grid.cpp"
 
-int main(int argc, char* argv[]){
+int main(){
     
-    // utilize command line inputs
-    std::string inputfile = argv[1];
-    std::string outputfile = argv[2];
-    std::string parse = argv[3];
-    int numstars_zone = atoi(parse.c_str());
-    std::string outputMode = argv[4];
-    std::string solutionMode = argv[5];
+    // collect input and output file names
+    std::string inputfile;
+    std::cout << "input file name: ";
+    std::cin >> inputfile;
 
-
+    std::string outputfile;
+    std::cout << "output file name: ";
+    std::cin >> outputfile;
+    
     // initialize files will be read from and outputted to
     std::ifstream myfile (inputfile);
     std::ofstream outfile(outputfile);
@@ -26,11 +27,10 @@ int main(int argc, char* argv[]){
     }
 
     // initialize grid
-    grid myGrid(myfile, numstars_zone);
-    myGrid.callRecursion(solutionMode);
+    grid myGrid(myfile);
+    myGrid.callRecursion();
     myGrid.printSolutions(outfile);
-    if (outputMode == "print")
-        myGrid.printBoard(outfile);
+    myGrid.printBoard(outfile);
 
     return 0;
 }

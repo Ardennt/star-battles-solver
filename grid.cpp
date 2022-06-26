@@ -1,11 +1,10 @@
 #include "grid.h"
 
 // declaration of grid which takes in an input file
-grid::grid(std::ifstream& myfile, const int& numS){
+grid::grid(std::ifstream& myfile){
     // the first two inputs are the row and column
     myfile >> row;
     myfile >> col;
-    numstars = numS;
     // board representation, board will contain -1 for stars
     board = std::vector<std::vector<int> >(col, std::vector<int>(row, 0));
     // tracks where in the board a star may be placed: board will be -1 
@@ -192,7 +191,7 @@ bool grid::all_valid(const std::vector<int>& starLOC){
     for (int i = 0; i < starLOC.size(); i+=2){
         int x = starLOC[i];
         int y = starLOC[i+1];
-        if (boardx[x][y] != 0 || boardx[x][y] >= numstars){
+        if (boardx[x][y] != 0 || boardx[x][y] >= 1){
             return false;
         }
         place(x, y, boardx);
@@ -202,7 +201,7 @@ bool grid::all_valid(const std::vector<int>& starLOC){
 
 // the BIG BOSS: recursive function
 void grid::solveBoard(int zoneI, std::vector<int>& starPlacements, 
-    std::vector<std::vector<int> >& result, const bool& one_or_all){
+    std::vector<std::vector<int> >& result){
     // BASE CASE: if we get to the last zone, those stars work.
     if (zoneI == strrep.size()){
         result.push_back(starPlacements);
@@ -218,10 +217,8 @@ void grid::solveBoard(int zoneI, std::vector<int>& starPlacements,
             // the stars currently are valid
             if (all_valid(starPlacements)){
                 // if they're valid, then adance to the next zone
-                solveBoard(zoneI + 1, starPlacements, result, one_or_all);
+                solveBoard(zoneI + 1, starPlacements, result);
                 // if we only want one solution, break when we find one
-                if (one_or_all)
-                    break;
             }
             // reset if not good or move towards the next solution
             starPlacements.pop_back();
@@ -232,13 +229,8 @@ void grid::solveBoard(int zoneI, std::vector<int>& starPlacements,
 
 // used in main, solveBoard uses many member variables,
 // makes a function to call solveBoard
-void grid::callRecursion(const std::string& solutions){
-    if (solutions == "one_solution")
-        solveBoard(0, star_loc, allresults, true);
-    else if (solutions == "all_solutions")
-        solveBoard(0, star_loc, allresults, false);
-    else
-        std::cerr << "solution type not recognizes" << std::endl;
+void grid::callRecursion(){
+    solveBoard(0, star_loc, allresults);
 }
 
 // sorts a vector by its size

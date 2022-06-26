@@ -19,7 +19,6 @@ class grid{
 private:
     int row;
     int col;
-    int numstars;
     std::vector<std::vector<int> > board;
     std::vector<std::vector<int> > boardTrack;
     std::vector<std::string> strrep;
@@ -29,7 +28,7 @@ private:
 
 
 public:
-    grid(std::ifstream& myfile, const int& numS);
+    grid(std::ifstream& myfile);
 
     void readFile(std::ifstream& file);
 
@@ -53,8 +52,8 @@ public:
     void printBoardTrack();
     bool all_valid(const std::vector<int>& starLOC);
     void solveBoard(int zoneI, std::vector<int>& starPlacements, 
-        std::vector<std::vector<int> >& result, const bool& one_or_all);
-    void callRecursion(const std::string& solutions);
+        std::vector<std::vector<int> >& result);
+    void callRecursion();
     
 };
 
